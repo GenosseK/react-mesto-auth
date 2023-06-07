@@ -52,6 +52,38 @@
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__figcaption/popup__figcaption.css);
 
+.header__container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 41px;
+}
+
+.header__email {
+    font-family: 'Inter', sans-serif, Arial;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+.header__link {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    color: #A9A9A9;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
 
 /* Пока не по БЭМ, но если функция кнопки будет одобрена, оформлю по правилам */
 #scroll-to-top-button {

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Route, Routes } from 'react-router-dom';
 import Header from "./Header";
+import Register from "./Register";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -27,7 +29,7 @@ function App() {
   const handleEditAvatarClick = () => setEditAvatarPopupOpen(true);
   const handleEditProfileClick = () => setEditProfilePopupOpen(true);
   const handleAddCardClick = () => setAddCardPopupOpen(true);
-  
+
   function handleConfimationClick(card) {
     setConfirmationPopupOpen(card);
   }
@@ -43,12 +45,12 @@ function App() {
 
   function handleCardDelete(card) {
     setIsLoading(true);
-    api.deleteCard(card._id). then(() => {
+    api.deleteCard(card._id).then(() => {
       setCards(cards => cards.filter((c) => c._id !== card._id))
     }).catch((error) => console.log(`Error: ${error}`))
-    .finally(() => {
-      setIsLoading(false)
-    })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   function handeleCardLike(card) {
@@ -67,9 +69,9 @@ function App() {
       setCurrentUser(res)
       closeAllPopups()
     }).catch((error) => console.log(`Error: ${error}`))
-    .finally(() => {
-      setIsLoading(false)
-    })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   function handleUpdateAvatar(avatar) {
@@ -78,9 +80,9 @@ function App() {
       setCurrentUser(res)
       closeAllPopups()
     }).catch((error) => console.log(`Error: ${error}`))
-    .finally(() => {
-      setIsLoading(false)
-    })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   function handleAddCard(card) {
@@ -89,9 +91,9 @@ function App() {
       setCards([res, ...cards])
       closeAllPopups()
     }).catch((error) => console.log(`Error: ${error}`))
-    .finally(() => {
-      setIsLoading(false)
-    })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const openImageViewer = (src, name) => {
@@ -111,21 +113,28 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+        <Routes>
 
-        <Header />
+          <Route path="/sign-up" element={<Register />} />
 
+          <Route path="/" element={
+            <>
+              <Header />
 
-        <Main
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddCard={handleAddCardClick}
-          onImageClick={openImageViewer}
-          onConfirmCardDelete={handleConfimationClick}
-          onCardDelete={handleCardDelete}
-          onCardLike={handeleCardLike}
-          cards={cards}
-        />
+              <Main
+                onEditAvatar={handleEditAvatarClick}
+                onEditProfile={handleEditProfileClick}
+                onAddCard={handleAddCardClick}
+                onImageClick={openImageViewer}
+                onConfirmCardDelete={handleConfimationClick}
+                onCardDelete={handleCardDelete}
+                onCardLike={handeleCardLike}
+                cards={cards}
+              />
+            </>
+          }></Route>
 
+        </Routes>
 
         <Footer />
 
@@ -136,18 +145,18 @@ function App() {
           isLoading={isLoading}
         />
 
-        <PopupAddCard 
-        onClose={closeAllPopups} 
-        isOpen={isAddCardPopupOpen}
-        onAddCard={handleAddCard}
-        isLoading={isLoading}
+        <PopupAddCard
+          onClose={closeAllPopups}
+          isOpen={isAddCardPopupOpen}
+          onAddCard={handleAddCard}
+          isLoading={isLoading}
         />
 
-        <EditAvatar 
-        onClose={closeAllPopups} 
-        isOpen={isEditAvatarPopupOpen}
-        onUpdateAvatar={handleUpdateAvatar}
-        isLoading={isLoading}
+        <EditAvatar
+          onClose={closeAllPopups}
+          isOpen={isEditAvatarPopupOpen}
+          onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
         />
 
         <ConfirmationPopup
