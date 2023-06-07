@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes } from 'react-router-dom';
 import Header from "./Header";
 import Register from "./Register";
+import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -113,13 +114,18 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+
+        <Header />
+
         <Routes>
 
           <Route path="/sign-up" element={<Register />} />
 
+          <Route path="/sign-in" element={<Login />} />
+
           <Route path="/" element={
             <>
-              <Header />
+
 
               <Main
                 onEditAvatar={handleEditAvatarClick}
@@ -131,49 +137,55 @@ function App() {
                 onCardLike={handeleCardLike}
                 cards={cards}
               />
+
+
+
+
+              <Footer />
+
+              <EditProfilePopup
+                onClose={closeAllPopups}
+                isOpen={isEditProfilePopupOpen}
+                onUpdateUser={handleEditUserInfo}
+                isLoading={isLoading}
+              />
+
+              <PopupAddCard
+                onClose={closeAllPopups}
+                isOpen={isAddCardPopupOpen}
+                onAddCard={handleAddCard}
+                isLoading={isLoading}
+              />
+
+              <EditAvatar
+                onClose={closeAllPopups}
+                isOpen={isEditAvatarPopupOpen}
+                onUpdateAvatar={handleUpdateAvatar}
+                isLoading={isLoading}
+              />
+
+              <ConfirmationPopup
+                isOpen={isConfirmationPopupOpen}
+                onClose={closeAllPopups}
+                onCardDelete={handleCardDelete}
+                isLoading={isLoading}
+              />
+
+              <ImagePopup
+                onClose={closeAllPopups}
+                isOpen={isImageViewerPopupOpen}
+                imageSrc={imageSrc}
+                altText={altText}
+              />
             </>
-          }></Route>
+          }>
+
+          </Route>
 
         </Routes>
 
-        <Footer />
-
-        <EditProfilePopup
-          onClose={closeAllPopups}
-          isOpen={isEditProfilePopupOpen}
-          onUpdateUser={handleEditUserInfo}
-          isLoading={isLoading}
-        />
-
-        <PopupAddCard
-          onClose={closeAllPopups}
-          isOpen={isAddCardPopupOpen}
-          onAddCard={handleAddCard}
-          isLoading={isLoading}
-        />
-
-        <EditAvatar
-          onClose={closeAllPopups}
-          isOpen={isEditAvatarPopupOpen}
-          onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isLoading}
-        />
-
-        <ConfirmationPopup
-          isOpen={isConfirmationPopupOpen}
-          onClose={closeAllPopups}
-          onCardDelete={handleCardDelete}
-          isLoading={isLoading}
-        />
-
-        <ImagePopup
-          onClose={closeAllPopups}
-          isOpen={isImageViewerPopupOpen}
-          imageSrc={imageSrc}
-          altText={altText}
-        />
-
         <ScrollButton />
+
       </div>
     </CurrentUserContext.Provider>
   );
