@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../images/logo.svg'
 
-function Header(props) {
+function Header({loggedIn, onLoggingOut, userEmail, buttonText, link}) {
     return (
         <header className="header">
             <img src={logo} alt="Место Россия" className="header__logo" />
             <div className="header__container">
-                <p className="header__email">akazhanov72@yandex.ru</p>
-                <Link className="header__link" to="/somepage">Выйти</Link>
+                {loggedIn &&
+                (<p className="header__email">{userEmail}</p>)}
+                <Link className="header__link" to={link} onClick={onLoggingOut}>{buttonText}</Link>
             </div>
         </header>
     );

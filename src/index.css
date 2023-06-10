@@ -123,6 +123,7 @@
     border-bottom: 2px solid #CCCCCC;
 
     padding: 0 0 10px;
+    outline: none;
 }
 
 .login__input:first-child {
@@ -153,10 +154,17 @@
     text-align: center;
     color: #000000;
     cursor: pointer;
+    border-radius: 2px;
+    border: none;
+    transition: opacity 0.5s ease;
+}
+
+.login__button:hover {
+    opacity: 0.8;
 }
 
 .login__subtitle {
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif, Arial;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -167,7 +175,7 @@
 }
 
 .login__link {
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif, Arial;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -175,8 +183,49 @@
     text-align: center;
     color: #FFFFFF;
     text-decoration: none;
+    transition: opacity 0.5s ease;
 }
 
+.login__link:hover {
+    opacity: 0.6;
+}
+
+.popup__response-image {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    margin: 26px auto 32px;
+}
+
+.popup__response-title {
+    font-family: 'Inter', sans-serif, Arial;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #000000;
+    margin: 0 0 25px 0;
+}
+
+.loading__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.loading__animation {
+    width: 12%;
+    height: 12%;
+}
 
 /* Пока не по БЭМ, но если функция кнопки будет одобрена, оформлю по правилам */
 #scroll-to-top-button {

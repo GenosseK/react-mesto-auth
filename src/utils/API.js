@@ -75,24 +75,6 @@ class API {
         }
     }
 
-    /*
-    addLike(cardID) {
-        return fetch(`${this._baseURL}/cards/${cardID}/likes`, {
-            method: 'PUT',
-            headers: this._headers,
-        })
-            .then(this._handleResponseStatus)
-    }
-
-    deleteLike(cardID) {
-        return fetch(`${this._baseURL}/cards/${cardID}/likes`, {
-            method: 'DELETE',
-            headers: this._headers,
-        })
-            .then(this._handleResponseStatus)
-    }
-    */
-
     changeAvatar(data) {
         return fetch(`${this._baseURL}/users/me/avatar`, {
             method: 'PATCH',
