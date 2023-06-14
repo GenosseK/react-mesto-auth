@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useForm } from 'react-hook-form';
+import { validateName, validateDescription } from "./FormValidator";
 
-function EditProfile({ onClose, isOpen, onUpdateUser, isLoading }) {
+function EditProfile({ onClose, isOpen, onUpdateUser, isLoading, onOverlayClick }) {
+
+  const { register, formState: { errors, isValid }, reset, setValue } = useForm();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('')
@@ -10,9 +14,26 @@ function EditProfile({ onClose, isOpen, onUpdateUser, isLoading }) {
   const currentUser = useContext(CurrentUserContext)
 
   useEffect(() => {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
-  }, [currentUser, isOpen]);
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+    // Trigger validation when the popup is opened, 
+    // so the submit button is activated if the inputs are valid initially
+    setValue("userName", currentUser.name, { shouldValidate: true });
+    setValue("userDescription", currentUser.about, { shouldValidate: true });
+  }, [currentUser, isOpen, setValue]);
+
+
+  // checking the validity of the inputs as the user types
+  function handleCardNameChange(value) {
+    setName(value);
+    setValue("userName", value, { shouldValidate: true });
+  }
+
+  // checking the validity of the inputs as the user types
+  function handleCardLinkChange(value) {
+    setDescription(value);
+    setValue("userDescription", value, { shouldValidate: true });
+  }
 
 
   function handleSubmit(e) {
@@ -24,6 +45,11 @@ function EditProfile({ onClose, isOpen, onUpdateUser, isLoading }) {
     });
   }
 
+  function handleClose() {
+    reset();
+    onClose();
+  }
+
   return (
     <PopupWithForm
       name="profile-edit"
@@ -32,9 +58,11 @@ function EditProfile({ onClose, isOpen, onUpdateUser, isLoading }) {
       submitButtonLabel="Сохранить"
       sumbitBtnLoading="Сохранение..."
       isLoading={isLoading}
-      onClose={onClose}
+      onClose={handleClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      onOverlayClick={onOverlayClick}
+      isFormValid={isValid}
     >
       <input
         type="text"
@@ -46,10 +74,17 @@ function EditProfile({ onClose, isOpen, onUpdateUser, isLoading }) {
         minLength="2"
         maxLength="40"
         autoComplete="off"
+        {...register("userName", {
+          validate: validateName,
+        })}
         value={name ?? ""}
-        onChange={(evt) => setName(evt.target.value)}
+        onChange={(e) => handleCardNameChange(e.target.value)}
       />
-      <span className="popup__input-error name-error"></span>
+      {errors.userName && (
+        <span className="popup__input-error popup__input-error_visible title-input-error">
+          {errors.userName.message}
+        </span>
+      )}
       <input
         type="text"
         className="popup__input"
@@ -60,10 +95,17 @@ function EditProfile({ onClose, isOpen, onUpdateUser, isLoading }) {
         minLength="2"
         maxLength="40"
         autoComplete="off"
+        {...register("userDescription", {
+          validate: validateDescription,
+        })}
         value={description ?? ""}
-        onChange={(evt) => setDescription(evt.target.value)}
+        onChange={(e) => handleCardLinkChange(e.target.value)}
       />
-      <span className="popup__input-error description-error"></span>
+      {errors.userDescription && (
+        <span className="popup__input-error popup__input-error_visible title-input-error">
+          {errors.userDescription.message}
+        </span>
+      )}
     </PopupWithForm>
   );
 }

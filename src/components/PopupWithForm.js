@@ -12,6 +12,8 @@ function PopupWithForm(props) {
     onSubmit,
     sumbitBtnLoading,
     isLoading,
+    onOverlayClick,
+    isFormValid,
   } = props;
 
   const titleClass = `popup__title ${
@@ -19,7 +21,7 @@ function PopupWithForm(props) {
   }`;
 
   return (
-    <div className={`popup popup_${name} ${isOpen ? "popup_opened" : ""} `}>
+    <div className={`popup popup_${name} ${isOpen ? "popup_opened" : ""} `} onMouseDown={onOverlayClick}>
       <div className="popup__container">
         <form onSubmit={onSubmit} name={formName} id={formName} className="popup__form" noValidate>
           <h2 className={titleClass}>{title}</h2>
@@ -27,7 +29,8 @@ function PopupWithForm(props) {
           <button
             aria-label={submitButtonLabel}
             type="submit"
-            className="popup__btn-save"
+            className={`popup__btn-save${!isFormValid ? " popup__btn-save_disabled" : ""}`}
+            disabled={!isFormValid}
           >
           {isLoading ? sumbitBtnLoading : submitButtonLabel}
           </button>

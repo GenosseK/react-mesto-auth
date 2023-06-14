@@ -1,10 +1,10 @@
 import React from "react";
 
 function ImagePopup(props) {
-  const { isOpen, onClose, imageSrc, altText } = props;
+  const { isOpen, onClose, imageSrc, altText, onOverlayClick } = props;
 
   return (
-    <div className={`popup popup_image-viewer ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup popup_image-viewer ${isOpen ? "popup_opened" : ""}`} onMouseUp={onOverlayClick}>
       <figure className="popup__image-container">
         <button
           type="button"

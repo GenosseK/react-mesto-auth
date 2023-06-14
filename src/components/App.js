@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Header from "./Header";
 import Register from "./Register";
@@ -18,6 +18,7 @@ import api from "../utils/API";
 import * as auth from "../utils/auth";
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import LoadingTokenScreen from "./LoadingTokenScreen";
+import {validateInput} from "./FormValidator";
 
 function App() {
 
@@ -62,6 +63,31 @@ function App() {
     setConfirmationPopupOpen(false);
     setInfoToolTipOpen(false);
   }
+
+  const modalWindowOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddCardPopupOpen || isImageViewerPopupOpen || isConfirmationPopupOpen || isInfoToolTipOpen;
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    if (modalWindowOpened) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalWindowOpened]);
+  
+  function closeByOverlay(evt) {
+    if (evt.target === evt.currentTarget) {
+      closeAllPopups()
+    }
+  }
+
 
   // Getting Users Data
   useEffect(() => {
@@ -209,6 +235,7 @@ function App() {
       [name]: value,
     }));
   };
+  
 
 
   return (<CurrentUserContext.Provider value={currentUser}>
@@ -236,6 +263,7 @@ function App() {
               isOpen={isInfoToolTipOpen}
               onClose={closeAllPopups}
               isStatusOk={registrated}
+              onOverlayClick={closeByOverlay}
             />
           </>
         } />
@@ -258,6 +286,7 @@ function App() {
               isOpen={isInfoToolTipOpen}
               onClose={closeAllPopups}
               isStatusOk={registrated}
+              onOverlayClick={closeByOverlay}
             />
           </>} />
 
@@ -293,6 +322,7 @@ function App() {
                   isOpen={isEditProfilePopupOpen}
                   onUpdateUser={handleEditUserInfo}
                   isLoading={isLoading}
+                  onOverlayClick={closeByOverlay}
                 />
 
                 <PopupAddCard
@@ -300,6 +330,7 @@ function App() {
                   isOpen={isAddCardPopupOpen}
                   onAddCard={handleAddCard}
                   isLoading={isLoading}
+                  onOverlayClick={closeByOverlay}
                 />
 
                 <EditAvatar
@@ -307,6 +338,7 @@ function App() {
                   isOpen={isEditAvatarPopupOpen}
                   onUpdateAvatar={handleUpdateAvatar}
                   isLoading={isLoading}
+                  onOverlayClick={closeByOverlay}
                 />
 
                 <ConfirmationPopup
@@ -314,6 +346,7 @@ function App() {
                   onClose={closeAllPopups}
                   onCardDelete={handleCardDelete}
                   isLoading={isLoading}
+                  onOverlayClick={closeByOverlay}
                 />
 
                 <ImagePopup
@@ -321,6 +354,7 @@ function App() {
                   isOpen={isImageViewerPopupOpen}
                   imageSrc={imageSrc}
                   altText={altText}
+                  onOverlayClick={closeByOverlay}
                 />
               </>
             }

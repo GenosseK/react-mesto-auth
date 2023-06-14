@@ -1,6 +1,6 @@
 import React from "react";
 
-function ConfirmationPopup({ isOpen, onClose, onCardDelete, isLoading }) {
+function ConfirmationPopup({ isOpen, onClose, onCardDelete, isLoading, onOverlayClick }) {
   
   function handleDeleteClick(e) {
     e.preventDefault()
@@ -9,7 +9,7 @@ function ConfirmationPopup({ isOpen, onClose, onCardDelete, isLoading }) {
   }
 
   return (
-    <div className={`popup popup_delete-card ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup popup_delete-card ${isOpen ? "popup_opened" : ""}`} onMouseUp={onOverlayClick}>
       <div className="popup__container">
         <button
           aria-label="Закрыть"
