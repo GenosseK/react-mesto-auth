@@ -8,8 +8,7 @@ export default function AuthForm({
   emailInput,
   passwordInput,
   handleChangeInput,
-})
-{
+}) {
 
   function handleSubmit(event) {
     event.preventDefault();

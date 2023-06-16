@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import { CurrentUserContext } from "../contexts/CurrentUserContext"
 
 function Card({ card, onCardClick, onCardLike, onConfirmCardDelete }) {
 
@@ -22,12 +22,12 @@ function Card({ card, onCardClick, onCardLike, onConfirmCardDelete }) {
 
   return (
     <li className="element">
-      {isOwn && 
-      <button
-        type="button"
-        className="element__button-delete"
-        onClick={handleConfirmClick}
-      ></button>}
+      {isOwn &&
+        <button
+          type="button"
+          className="element__button-delete"
+          onClick={handleConfirmClick}
+        ></button>}
       <img
         src={card.link}
         alt={card.name}

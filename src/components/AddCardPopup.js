@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from 'react-hook-form';
-import { validateTitle, validateUrl } from "./FormValidator";
+import { validateTitle, validateUrl } from "../utils/FormValidator";
 
 function AddCard({ onClose, isOpen, onAddCard, isLoading, onOverlayClick }) {
 

@@ -16,9 +16,8 @@ function PopupWithForm(props) {
     isFormValid,
   } = props;
 
-  const titleClass = `popup__title ${
-    name === "update-avatar" ? "popup__title_avatar" : ""
-  }`;
+  const titleClass = `popup__title ${name === "update-avatar" ? "popup__title_avatar" : ""
+    }`;
 
   return (
     <div className={`popup popup_${name} ${isOpen ? "popup_opened" : ""} `} onMouseDown={onOverlayClick}>
@@ -32,7 +31,7 @@ function PopupWithForm(props) {
             className={`popup__btn-save${!isFormValid ? " popup__btn-save_disabled" : ""}`}
             disabled={!isFormValid}
           >
-          {isLoading ? sumbitBtnLoading : submitButtonLabel}
+            {isLoading ? sumbitBtnLoading : submitButtonLabel}
           </button>
         </form>
         <button

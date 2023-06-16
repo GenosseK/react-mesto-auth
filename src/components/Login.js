@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "./Header";
-import { Link } from "react-router-dom";
 import AuthForm from "./AuthForm";
 
 function Login({onLogin, passwordInput, emailInput, handleChangeInput}) {

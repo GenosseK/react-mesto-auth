@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from 'react-hook-form';
-import { validateName, validateDescription } from "./FormValidator";
+import { validateName, validateDescription } from "../utils/FormValidator";
 
 function EditProfile({ onClose, isOpen, onUpdateUser, isLoading, onOverlayClick }) {
 

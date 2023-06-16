@@ -1,7 +1,7 @@
 import React from "react";
 
 function ConfirmationPopup({ isOpen, onClose, onCardDelete, isLoading, onOverlayClick }) {
-  
+
   function handleDeleteClick(e) {
     e.preventDefault()
     onCardDelete(isOpen);

@@ -5,6 +5,25 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__container/header__container.css);
+@import url(./blocks/header/__email/header__email.css);
+@import url(./blocks/header/__link/header__link.css);
+@import url(./blocks/header/__hamburger/header__hamburger.css);
+@import url(./blocks/header/__hamburger-bar/header__hamburger-bar.css);
+@import url(./blocks/header/__menu/header__menu.css);
+@import url(./blocks/header/__menu/_email/header__menu_email.css);
+@import url(./blocks/header/__menu/_logout/header__menu_logout.css);
+@import url(./blocks/header/__close-button/header__close-button.css);
+@import url(./blocks/header/__close-icon/header__close-icon.css);
+
+@import url(./blocks/login/login.css);
+@import url(./blocks/login/__title/login__title.css);
+@import url(./blocks/login/__form/login__form.css);
+@import url(./blocks/login/__input/login__input.css);
+@import url(./blocks/login/__submission-section/login__submission-section.css);
+@import url(./blocks/login/__button/login__button.css);
+@import url(./blocks/login/__subtitle/login__subtitle.css);
+@import url(./blocks/login/__link/login__link.css);
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__info/profile__info.css);
@@ -51,301 +70,11 @@
 @import url(./blocks/popup/__image-container/popup__image-container.css);
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__figcaption/popup__figcaption.css);
+@import url(./blocks/popup/___response-image/popup__response-image.css);
+@import url(./blocks/popup/__response-title/popup__response-title.css);
 
-.header__container {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding-bottom: 41px;
-}
-
-.header__email {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: right;
-    color: #FFFFFF;
-    margin: 0;
-    padding: 0;
-}
-
-.header__link {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: right;
-    color: #A9A9A9;
-    text-decoration: none;
-    margin: 0;
-    padding: 0;
-}
-
-.login {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    max-width: 358px;
-}
-
-@media screen and (max-width: 450px) {
-    .login {
-        max-width: calc(100% - 20%);
-    }
-}
-
-.login__title {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
-    text-align: center;
-    color: #FFFFFF;
-    margin: 60px 0 50px 0;
-}
-
-.login__form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.login__input {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-
-    color: #CCCCCC;
-
-    background-color: transparent;
-
-    border: none;
-    border-bottom: 2px solid #CCCCCC;
-
-    padding: 0 0 10px;
-    outline: none;
-}
-
-.login__input:first-child {
-    margin-bottom: 30px;
-}
-
-.login__input:last-child {
-    margin-bottom: 0;
-}
-
-.login__submission-section {
-    display: flex;
-    flex-direction: column;
-    margin-top: 216px;
-    gap: 15px;
-}
-
-.login__button {
-    max-width: 358px;
-    height: 50px;
-    background: #FFFFFF;
-    border-radius: 2px;
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    color: #000000;
-    cursor: pointer;
-    border-radius: 2px;
-    border: none;
-    transition: opacity 0.5s ease;
-}
-
-.login__button:hover {
-    opacity: 0.8;
-}
-
-.login__subtitle {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    color: #FFFFFF;
-    margin: 0;
-}
-
-.login__link {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    color: #FFFFFF;
-    text-decoration: none;
-    transition: opacity 0.5s ease;
-}
-
-.login__link:hover {
-    opacity: 0.6;
-}
-
-.popup__response-image {
-    width: 120px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    margin: 26px auto 32px;
-}
-
-.popup__response-title {
-    font-family: 'Inter', sans-serif, Arial;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
-    text-align: center;
-    color: #000000;
-    margin: 0 0 25px 0;
-}
-
-.loading__container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-}
-
-.loading__animation {
-    width: 12%;
-    height: 12%;
-}
-
-@media screen and (min-width: 391px) {
-    .header__hamburger,
-    .header__menu {
-      display: none;
-    }
-  }
-
-/* Mobile Styles */
-@media screen and (max-width: 390px) {
-
-    .header__email,
-    .header__link {
-        display: none;
-    }
-
-    .header__container {
-        justify-content: flex-end;
-        gap: 0;
-        padding-bottom: 31px;
-    }
-    
-
-    .header__hamburger {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .header__hamburger-bar {
-        width: 26px;
-        height: 3px;
-        background-color: #FFFFFF;
-        margin: 4px;
-        transition: background-color 0.3s ease;
-    }
-
-    .header__hamburger-bar:nth-child(2) {
-        margin: 3px 0;
-    }
-
-    .header__menu {
-        position: absolute;
-        top: -142px;
-        left: 0;
-        width: 100%;
-        height: 142px;
-        background-color: #000000;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: top 0.3s ease;
-    }
-
-    .header__menu.open {
-        top: 0;
-    }
-
-    .header__menu-email {
-        font-family: 'Inter', sans-serif, Arial;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
-        color: #FFFFFF;
-        margin-bottom: 8px;
-    }
-
-    .header__menu-logout {
-        font-family: 'Inter', sans-serif, Arial;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 22px;
-        color: #A9A9A9;
-        text-decoration: none;
-    }
-}
-
-.header__close-button {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-
-}
-
-.header__close-icon {
-    width: 100%;
-    height: 100%;
-    transition: opacity .2s ease-in-out;
-}
-
-.header__close-icon:hover {
-    opacity: 0.6;
-}
+@import url(./blocks/loading/__container/loading__container.css);
+@import url(./blocks/loading/__animation/loading__animation.css);
 
 /* Пока не по БЭМ, но если функция кнопки будет одобрена, оформлю по правилам */
 #scroll-to-top-button {

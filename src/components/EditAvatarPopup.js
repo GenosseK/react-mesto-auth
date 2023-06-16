@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from 'react-hook-form';
-import { validateUrl } from "./FormValidator";
+import { validateUrl } from "../utils/FormValidator";
 
 function EditAvatar(props) {
   const { isOpen, onClose, onUpdateAvatar, isLoading, onOverlayClick } = props;
@@ -18,7 +18,7 @@ function EditAvatar(props) {
 
   useEffect(() => {
     reset();
-    setValue("userAvatar", "", { shouldValidate: false });
+    setValue("userAvatar", "", { shouldValidate: true });
   }, [isOpen, reset, setValue]);
 
   const handleAvatarChange = (value) => {
