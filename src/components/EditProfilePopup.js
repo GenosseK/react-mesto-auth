@@ -1,27 +1,36 @@
 import React, { useState, useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { validateName, validateDescription } from "../utils/FormValidator";
 
-function EditProfile({ onClose, isOpen, onUpdateUser, isLoading, onOverlayClick }) {
+function EditProfile({
+  onClose,
+  isOpen,
+  onUpdateUser,
+  isLoading,
+  onOverlayClick,
+}) {
+  const {
+    register,
+    formState: { errors, isValid },
+    reset,
+    setValue,
+  } = useForm();
 
-  const { register, formState: { errors, isValid }, reset, setValue } = useForm();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('')
-
-  const currentUser = useContext(CurrentUserContext)
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-    // Trigger validation when the popup is opened, 
+    // Trigger validation when the popup is opened,
     // so the submit button is activated if the inputs are valid initially
     setValue("userName", currentUser.name, { shouldValidate: true });
     setValue("userDescription", currentUser.about, { shouldValidate: true });
   }, [currentUser, isOpen, setValue]);
-
 
   // checking the validity of the inputs as the user types
   function handleCardNameChange(value) {
@@ -35,13 +44,12 @@ function EditProfile({ onClose, isOpen, onUpdateUser, isLoading, onOverlayClick 
     setValue("userDescription", value, { shouldValidate: true });
   }
 
-
   function handleSubmit(e) {
     e.preventDefault();
 
     onUpdateUser({
       name,
-      about: description
+      about: description,
     });
   }
 

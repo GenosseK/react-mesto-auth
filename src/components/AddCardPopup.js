@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { validateTitle, validateUrl } from "../utils/FormValidator";
 
 function AddCard({ onClose, isOpen, onAddCard, isLoading, onOverlayClick }) {
+  const {
+    register,
+    formState: { errors, isValid },
+    reset,
+    setValue,
+  } = useForm();
 
-  const { register, formState: { errors, isValid }, reset, setValue } = useForm();
-
-  const [cardName, setCardName] = useState('')
-  const [cardLink, setCardLink] = useState('')
+  const [cardName, setCardName] = useState("");
+  const [cardLink, setCardLink] = useState("");
 
   useEffect(() => {
-    setCardName('');
-    setCardLink('');
+    setCardName("");
+    setCardLink("");
     reset();
-  }, [isOpen])
-
+  }, [isOpen]);
 
   // checking the validity of the inputs as the user types
   function handleCardNameChange(value) {
@@ -35,7 +38,7 @@ function AddCard({ onClose, isOpen, onAddCard, isLoading, onOverlayClick }) {
     onAddCard({
       name: cardName,
       link: cardLink,
-    })
+    });
   }
 
   return (

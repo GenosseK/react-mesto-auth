@@ -9,7 +9,6 @@ export default function AuthForm({
   passwordInput,
   handleChangeInput,
 }) {
-
   function handleSubmit(event) {
     event.preventDefault();
     handleSubmitForm();
@@ -42,7 +41,9 @@ export default function AuthForm({
           required
         />
         <div className="login__submission-section">
-          <button className="login__button" onSubmit={handleSubmit}>{buttonText}</button>
+          <button className="login__button">
+            {buttonText}
+          </button>
           {loginLink && (
             <p className="login__subtitle">
               Уже зарегистрированы?{" "}

@@ -1,8 +1,12 @@
 import React from "react";
 import AuthForm from "./AuthForm";
 
-function Register({ onRegister, passwordInput, emailInput, handleChangeInput }) {
-
+function Register({
+  onRegister,
+  passwordInput,
+  emailInput,
+  handleChangeInput,
+}) {
   return (
     <AuthForm
       title="Регистрация"

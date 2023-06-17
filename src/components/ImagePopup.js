@@ -4,7 +4,10 @@ function ImagePopup(props) {
   const { isOpen, onClose, imageSrc, altText, onOverlayClick } = props;
 
   return (
-    <div className={`popup popup_image-viewer ${isOpen ? "popup_opened" : ""}`} onMouseDown={onOverlayClick}>
+    <div
+      className={`popup popup_image-viewer ${isOpen ? "popup_opened" : ""}`}
+      onMouseDown={onOverlayClick}
+    >
       <figure className="popup__image-container">
         <button
           type="button"

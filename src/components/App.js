@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Register from "./Register";
 import Login from "./Login";
@@ -15,23 +15,22 @@ import InfoToolTip from "./InfoToolTip";
 import ScrollButton from "./ScrollButton";
 import api from "../utils/API";
 import * as auth from "../utils/auth";
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import LoadingTokenScreen from "./LoadingTokenScreen";
 
 function App() {
-
   // USE STATE
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddCardPopupOpen, setAddCardPopupOpen] = useState(false);
   const [isImageViewerPopupOpen, setImageViewerPopupOpen] = useState(false);
   const [isConfirmationPopupOpen, setConfirmationPopupOpen] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [altText, setAltText] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [registrated, setRegistrated] = useState(false)
+  const [registrated, setRegistrated] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
   const [isInfoToolTipOpen, setInfoToolTipOpen] = useState(false);
   const [userEmail, setUserEmail] = useState("");
@@ -62,7 +61,13 @@ function App() {
     setInfoToolTipOpen(false);
   }
 
-  const modalWindowOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddCardPopupOpen || isImageViewerPopupOpen || isConfirmationPopupOpen || isInfoToolTipOpen;
+  const modalWindowOpened =
+    isEditAvatarPopupOpen ||
+    isEditProfilePopupOpen ||
+    isAddCardPopupOpen ||
+    isImageViewerPopupOpen ||
+    isConfirmationPopupOpen ||
+    isInfoToolTipOpen;
 
   // Closing popups by ESC
   useEffect(() => {
@@ -84,10 +89,9 @@ function App() {
   // Closing Popups by Overlay
   function closeByOverlay(evt) {
     if (evt.target === evt.currentTarget) {
-      closeAllPopups()
+      closeAllPopups();
     }
   }
-
 
   // Getting Users Data
   useEffect(() => {
@@ -102,71 +106,88 @@ function App() {
   // Card Deletion
   function handleCardDelete(card) {
     setIsLoading(true);
-    api.deleteCard(card._id).then(() => {
-      setCards(cards => cards.filter((c) => c._id !== card._id))
-    }).catch((error) => console.log(`Error: ${error}`))
-      .finally(() => {
-        setIsLoading(false)
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
+        closeAllPopups();
       })
+      .catch((error) => console.log(`Error: ${error}`))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   // Card Like
   function handeleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-
-    api.changeLike(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    }).catch((error) => console.log(`Error: ${error}`));
-
+    api
+      .changeLike(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((error) => console.log(`Error: ${error}`));
   }
 
   // Editing User's Info
   function handleEditUserInfo(user) {
     setIsLoading(true);
-    api.editUserInfo(user).then((res) => {
-      setCurrentUser(res)
-      closeAllPopups()
-    }).catch((error) => console.log(`Error: ${error}`))
-      .finally(() => {
-        setIsLoading(false)
+    api
+      .editUserInfo(user)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
       })
+      .catch((error) => console.log(`Error: ${error}`))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   // Changing Avatar
   function handleUpdateAvatar(avatar) {
-    setIsLoading(true)
-    api.changeAvatar(avatar).then((res) => {
-      setCurrentUser(res)
-      closeAllPopups()
-    }).catch((error) => console.log(`Error: ${error}`))
-      .finally(() => {
-        setIsLoading(false)
+    setIsLoading(true);
+    api
+      .changeAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
       })
+      .catch((error) => console.log(`Error: ${error}`))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   // Add Card
   function handleAddCard(card) {
-    setIsLoading(true)
-    api.addCard(card).then((res) => {
-      setCards([res, ...cards])
-      closeAllPopups()
-    }).catch((error) => console.log(`Error: ${error}`))
-      .finally(() => {
-        setIsLoading(false)
+    setIsLoading(true);
+    api
+      .addCard(card)
+      .then((res) => {
+        setCards([res, ...cards]);
+        closeAllPopups();
       })
+      .catch((error) => console.log(`Error: ${error}`))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   // Checking Token
   function checkToken() {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem("jwt");
 
     if (jwt) {
-      auth.checkToken(jwt)
+      auth
+        .checkToken(jwt)
         .then((res) => {
           setUserEmail(res.data.email);
           setloggedIn(true);
-          navigate('/');
+          navigate("/");
         })
         .catch((error) => {
           console.log(`Error: ${error}`);
@@ -175,28 +196,29 @@ function App() {
           setIsLoadingToken(false);
         });
     } else {
-      navigate('/sign-in');
+      navigate("/sign-in");
       setIsLoadingToken(false);
     }
   }
 
   useEffect(() => {
-    checkToken()
-  }, [])
+    checkToken();
+  }, []);
 
   const [authData, setAuthData] = useState({
     password: "",
     email: "",
-  })
+  });
 
   // Registration
   function handleRegister() {
-    setRegistrated(false)
+    setRegistrated(false);
     const { password, email } = authData;
-    auth.register(password, email)
+    auth
+      .register(password, email)
       .then((res) => {
         if (res.data.email) {
-          setRegistrated(true)
+          setRegistrated(true);
           navigate("/sign-in");
         }
       })
@@ -204,33 +226,32 @@ function App() {
         setAuthData({ password: "", email: "" });
       })
       .catch((error) => console.log(`Error: ${error}`))
-      .finally(() => setInfoToolTipOpen(true))
+      .finally(() => setInfoToolTipOpen(true));
   }
-
 
   // Logging in
   const handleLogin = () => {
     const { password, email } = authData;
-    auth.authorise(password, email)
+    auth
+      .authorise(password, email)
       .then((res) => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
-          setUserEmail(email)
-          setloggedIn(true)
+          setUserEmail(email);
+          setloggedIn(true);
           navigate("/");
         }
       })
       .then(() => {
-        setAuthData({ password: "", email: "" })
+        setAuthData({ password: "", email: "" });
       })
       .catch((error) => console.log(`Error: ${error}`));
   };
 
-
   // Logging Out
   const handleLogOut = () => {
     localStorage.removeItem("jwt");
-    setloggedIn(false)
+    setloggedIn(false);
     navigate("/sign-in", { replace: true });
   };
 
@@ -242,135 +263,132 @@ function App() {
     }));
   };
 
-
-  return (<CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
-
-      {isLoadingToken ? (<LoadingTokenScreen />) : (
-
-        <Routes>
-
-          <Route path="/sign-up" element={
-            <>
-              <Header
-                buttonText="Войти"
-                link="/sign-in"
-              />
-
-              <Register
-                onRegister={handleRegister}
-                passwordInput={authData.password}
-                emailInput={authData.email}
-
-                handleChangeInput={handleChangeInput}
-              />
-              <InfoToolTip
-                isOpen={isInfoToolTipOpen}
-                onClose={closeAllPopups}
-                isStatusOk={registrated}
-                onOverlayClick={closeByOverlay}
-              />
-            </>
-          } />
-
-          <Route path="/sign-in" element={
-            <>
-
-              <Header
-                buttonText="Регистрация"
-                link="/sign-up"
-              />
-
-              <Login
-                onLogin={handleLogin}
-                passwordInput={authData.password}
-                emailInput={authData.email}
-                handleChangeInput={handleChangeInput}
-              />
-              <InfoToolTip
-                isOpen={isInfoToolTipOpen}
-                onClose={closeAllPopups}
-                isStatusOk={registrated}
-                onOverlayClick={closeByOverlay}
-              />
-            </>} />
-
-          <Route path="/" element={<ProtectedRoute loggedIn={loggedIn} />}>
-
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        {isLoadingToken ? (
+          <LoadingTokenScreen />
+        ) : (
+          <Routes>
             <Route
-              path="/"
+              path="/sign-up"
               element={
                 <>
-                  <Header
-                    loggedIn={loggedIn}
-                    onLoggingOut={handleLogOut}
-                    userEmail={userEmail}
-                    buttonText="Выйти"
-                    link="/sign-in"
+                  <Header buttonText="Войти" link="/sign-in" />
+
+                  <Register
+                    onRegister={handleRegister}
+                    passwordInput={authData.password}
+                    emailInput={authData.email}
+                    handleChangeInput={handleChangeInput}
                   />
-
-                  <Main
-                    onEditAvatar={handleEditAvatarClick}
-                    onEditProfile={handleEditProfileClick}
-                    onAddCard={handleAddCardClick}
-                    onImageClick={openImageViewer}
-                    onConfirmCardDelete={handleConfimationClick}
-                    onCardDelete={handleCardDelete}
-                    onCardLike={handeleCardLike}
-                    cards={cards}
-                  />
-
-                  <Footer />
-
-                  <EditProfilePopup
+                  <InfoToolTip
+                    isOpen={isInfoToolTipOpen}
                     onClose={closeAllPopups}
-                    isOpen={isEditProfilePopupOpen}
-                    onUpdateUser={handleEditUserInfo}
-                    isLoading={isLoading}
-                    onOverlayClick={closeByOverlay}
-                  />
-
-                  <PopupAddCard
-                    onClose={closeAllPopups}
-                    isOpen={isAddCardPopupOpen}
-                    onAddCard={handleAddCard}
-                    isLoading={isLoading}
-                    onOverlayClick={closeByOverlay}
-                  />
-
-                  <EditAvatar
-                    onClose={closeAllPopups}
-                    isOpen={isEditAvatarPopupOpen}
-                    onUpdateAvatar={handleUpdateAvatar}
-                    isLoading={isLoading}
-                    onOverlayClick={closeByOverlay}
-                  />
-
-                  <ConfirmationPopup
-                    isOpen={isConfirmationPopupOpen}
-                    onClose={closeAllPopups}
-                    onCardDelete={handleCardDelete}
-                    isLoading={isLoading}
-                    onOverlayClick={closeByOverlay}
-                  />
-
-                  <ImagePopup
-                    onClose={closeAllPopups}
-                    isOpen={isImageViewerPopupOpen}
-                    imageSrc={imageSrc}
-                    altText={altText}
+                    isStatusOk={registrated}
                     onOverlayClick={closeByOverlay}
                   />
                 </>
               }
-            /></Route>
+            />
 
-        </Routes>)}
+            <Route
+              path="/sign-in"
+              element={
+                <>
+                  <Header buttonText="Регистрация" link="/sign-up" />
 
-      <ScrollButton />
+                  <Login
+                    onLogin={handleLogin}
+                    passwordInput={authData.password}
+                    emailInput={authData.email}
+                    handleChangeInput={handleChangeInput}
+                  />
+                  <InfoToolTip
+                    isOpen={isInfoToolTipOpen}
+                    onClose={closeAllPopups}
+                    isStatusOk={registrated}
+                    onOverlayClick={closeByOverlay}
+                  />
+                </>
+              }
+            />
 
-    </div>
-  </CurrentUserContext.Provider>
+            <Route path="/" element={<ProtectedRoute loggedIn={loggedIn} />}>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Header
+                      loggedIn={loggedIn}
+                      onLoggingOut={handleLogOut}
+                      userEmail={userEmail}
+                      buttonText="Выйти"
+                      link="/sign-in"
+                    />
+
+                    <Main
+                      onEditAvatar={handleEditAvatarClick}
+                      onEditProfile={handleEditProfileClick}
+                      onAddCard={handleAddCardClick}
+                      onImageClick={openImageViewer}
+                      onConfirmCardDelete={handleConfimationClick}
+                      onCardDelete={handleCardDelete}
+                      onCardLike={handeleCardLike}
+                      cards={cards}
+                    />
+
+                    <Footer />
+
+                    <EditProfilePopup
+                      onClose={closeAllPopups}
+                      isOpen={isEditProfilePopupOpen}
+                      onUpdateUser={handleEditUserInfo}
+                      isLoading={isLoading}
+                      onOverlayClick={closeByOverlay}
+                    />
+
+                    <PopupAddCard
+                      onClose={closeAllPopups}
+                      isOpen={isAddCardPopupOpen}
+                      onAddCard={handleAddCard}
+                      isLoading={isLoading}
+                      onOverlayClick={closeByOverlay}
+                    />
+
+                    <EditAvatar
+                      onClose={closeAllPopups}
+                      isOpen={isEditAvatarPopupOpen}
+                      onUpdateAvatar={handleUpdateAvatar}
+                      isLoading={isLoading}
+                      onOverlayClick={closeByOverlay}
+                    />
+
+                    <ConfirmationPopup
+                      isOpen={isConfirmationPopupOpen}
+                      onClose={closeAllPopups}
+                      onCardDelete={handleCardDelete}
+                      isLoading={isLoading}
+                      onOverlayClick={closeByOverlay}
+                    />
+
+                    <ImagePopup
+                      onClose={closeAllPopups}
+                      isOpen={isImageViewerPopupOpen}
+                      imageSrc={imageSrc}
+                      altText={altText}
+                      onOverlayClick={closeByOverlay}
+                    />
+                  </>
+                }
+              />
+            </Route>
+          </Routes>
+        )}
+
+        <ScrollButton />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

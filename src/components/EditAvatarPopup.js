@@ -1,36 +1,36 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { validateUrl } from "../utils/FormValidator";
 
 function EditAvatar(props) {
   const { isOpen, onClose, onUpdateAvatar, isLoading, onOverlayClick } = props;
 
-  const inputAvatar = useRef();
   const currentUser = useContext(CurrentUserContext);
 
-  const { register, formState: { errors, isValid }, reset, setValue } = useForm();
-
-  useEffect(() => {
-    inputAvatar.current.value = ''
-  }, [currentUser]);
+  const {
+    register,
+    formState: { errors, isValid },
+    reset,
+    setValue,
+  } = useForm();
 
   useEffect(() => {
     reset();
     setValue("userAvatar", "", { shouldValidate: true });
-  }, [isOpen, reset, setValue]);
+  }, [isOpen, reset, setValue, currentUser]);
 
-  const handleAvatarChange = (value) => {
-    setValue("userAvatar", value, { shouldValidate: true });
+  const handleAvatarChange = (e) => {
+    setValue("userAvatar", e.target.value, { shouldValidate: true });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onUpdateAvatar({
-      avatar: inputAvatar.current.value,
-    })
+      avatar: e.target.userAvatar.value,
+    });
   }
 
   return (
@@ -59,8 +59,7 @@ function EditAvatar(props) {
           {...register("userAvatar", {
             validate: validateUrl,
           })}
-          ref={inputAvatar}
-          onChange={(e) => handleAvatarChange(e.target.value)}
+          onChange={handleAvatarChange}
         />
         {errors.userAvatar && (
           <span className="popup__input-error popup__input-error_visible link-avatar-input-error">
