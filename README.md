@@ -28,4 +28,5 @@ cd mesto-react
 npm install
 npm start
 ```
-## Ссылка на сайт - https://genossek.github.io/react-mesto-auth/
+## Ссылка на сайт: 
+https://genossek.github.io/react-mesto-auth/
