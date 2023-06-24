@@ -187,7 +187,7 @@ function App() {
         .then((res) => {
           setUserEmail(res.data.email);
           setloggedIn(true);
-          navigate("/");
+          navigate("/react-mesto-auth");
         })
         .catch((error) => {
           console.log(`Error: ${error}`);
@@ -314,9 +314,9 @@ function App() {
               }
             />
 
-            <Route path="/" element={<ProtectedRoute loggedIn={loggedIn} />}>
+            <Route path="/react-mesto-auth" element={<ProtectedRoute loggedIn={loggedIn} />}>
               <Route
-                path="/"
+                path="/react-mesto-auth"
                 element={
                   <>
                     <Header
